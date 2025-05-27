@@ -572,6 +572,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		}
 
 		// Allow post-processors to modify the merged bean definition.
+		//diy 通过MergedBeanDefinitionPostProcessor这个后置处理器，在实例化bean之后populateBean之前可以再对BeanDefinition做一次修改·
 		synchronized (mbd.postProcessingLock) {
 			if (!mbd.postProcessed) {
 				try {
@@ -1190,7 +1191,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 				return obtainFromSupplier(instanceSupplier, beanName, mbd);
 			}
 		}
-
+		//diy @Bean方式创建的bean会调用这里
 		if (mbd.getFactoryMethodName() != null) {
 			return instantiateUsingFactoryMethod(beanName, mbd, args);
 		}
@@ -1216,6 +1217,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		}
 
 		// Candidate constructors for autowiring?
+		// diy 用SmartInstantiationAwareBeanPostProcessor选择一个构造器
 		Constructor<?>[] ctors = determineConstructorsFromBeanPostProcessors(beanClass, beanName);
 		if (ctors != null || mbd.getResolvedAutowireMode() == AUTOWIRE_CONSTRUCTOR ||
 				mbd.hasConstructorArgumentValues() || !ObjectUtils.isEmpty(args)) {
@@ -1223,6 +1225,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		}
 
 		// Preferred constructors for default construction?
+		//diy 使用BeanDefinition里设置的你喜欢的构造器
 		ctors = mbd.getPreferredConstructors();
 		if (ctors != null) {
 			return autowireConstructor(beanName, mbd, ctors, null);
@@ -1416,16 +1419,17 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		// Give any InstantiationAwareBeanPostProcessors the opportunity to modify the
 		// state of the bean before properties are set. This can be used, for example,
 		// to support styles of field injection.
+		//diy 在设置属性之前，可以通过InstantiationAwareBeanPostProcessors修改bean的状态
 		if (!mbd.isSynthetic() && hasInstantiationAwareBeanPostProcessors()) {
 			for (InstantiationAwareBeanPostProcessor bp : getBeanPostProcessorCache().instantiationAware) {
 				if (!bp.postProcessAfterInstantiation(bw.getWrappedInstance(), beanName)) {
-					return;
+					return; //diy 并且可以中断属性赋值行为
 				}
 			}
 		}
 
 		PropertyValues pvs = (mbd.hasPropertyValues() ? mbd.getPropertyValues() : null);
-
+		//diy xml配置bean时，依赖注入的代码。resolvedAutowireMode的值默认是0，所以不是xml方式，不会走这段代码
 		int resolvedAutowireMode = mbd.getResolvedAutowireMode();
 		if (resolvedAutowireMode == AUTOWIRE_BY_NAME || resolvedAutowireMode == AUTOWIRE_BY_TYPE) {
 			MutablePropertyValues newPvs = new MutablePropertyValues(pvs);
@@ -1439,6 +1443,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			}
 			pvs = newPvs;
 		}
+		//diy @Autowire等注解依赖注入是通过AutowiredAnnotationBeanPostProcessor后置处理器实现的
 		if (hasInstantiationAwareBeanPostProcessors()) {
 			if (pvs == null) {
 				pvs = mbd.getPropertyValues();
@@ -1802,6 +1807,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
 		Object wrappedBean = bean;
 		if (mbd == null || !mbd.isSynthetic()) {
+			//diy 执行Bean后置处理器的postProcessBeforeInitialization方法，该方法返回的是一个bean，也就是说这里也可以对bean修改
 			wrappedBean = applyBeanPostProcessorsBeforeInitialization(wrappedBean, beanName);
 		}
 
@@ -1852,6 +1858,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	protected void invokeInitMethods(String beanName, Object bean, @Nullable RootBeanDefinition mbd)
 			throws Throwable {
 
+		//diy 执行InitializingBean
 		boolean isInitializingBean = (bean instanceof InitializingBean);
 		if (isInitializingBean && (mbd == null || !mbd.hasAnyExternallyManagedInitMethod("afterPropertiesSet"))) {
 			if (logger.isTraceEnabled()) {
@@ -1859,7 +1866,8 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			}
 			((InitializingBean) bean).afterPropertiesSet();
 		}
-
+		//diy 执行BeanDefinition里的自定义初始化方法
+		// @Bean(init="")和<bean init-method="">都是指定自定义初始化方法的方式
 		if (mbd != null && bean.getClass() != NullBean.class) {
 			String[] initMethodNames = mbd.getInitMethodNames();
 			if (initMethodNames != null) {

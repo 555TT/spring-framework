@@ -51,3 +51,5 @@ settings.gradle.projectsLoaded {
 		}
 	}
 }
+include 'Test'
+
