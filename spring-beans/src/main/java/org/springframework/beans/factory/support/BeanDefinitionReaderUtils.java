@@ -165,7 +165,7 @@ public abstract class BeanDefinitionReaderUtils {
 		registry.registerBeanDefinition(beanName, definitionHolder.getBeanDefinition());
 
 		// Register aliases for bean name, if any.
-		String[] aliases = definitionHolder.getAliases();
+		String[] aliases = definitionHolder.getAliases();	//diy 向一个Map中添加BeanDefinition
 		if (aliases != null) {
 			for (String alias : aliases) {
 				registry.registerAlias(beanName, alias);

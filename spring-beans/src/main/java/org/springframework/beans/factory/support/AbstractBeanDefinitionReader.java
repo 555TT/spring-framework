@@ -203,7 +203,7 @@ public abstract class AbstractBeanDefinitionReader implements BeanDefinitionRead
 	 * @see #loadBeanDefinitions(org.springframework.core.io.Resource[])
 	 */
 	public int loadBeanDefinitions(String location, @Nullable Set<Resource> actualResources) throws BeanDefinitionStoreException {
-		ResourceLoader resourceLoader = getResourceLoader();
+		ResourceLoader resourceLoader = getResourceLoader();	// diy 这个资源加载器就是这个ClassPathXmlApplicationContext
 		if (resourceLoader == null) {
 			throw new BeanDefinitionStoreException(
 					"Cannot load bean definitions from location [" + location + "]: no ResourceLoader available");
@@ -212,7 +212,7 @@ public abstract class AbstractBeanDefinitionReader implements BeanDefinitionRead
 		if (resourceLoader instanceof ResourcePatternResolver resourcePatternResolver) {
 			// Resource pattern matching available.
 			try {
-				Resource[] resources = resourcePatternResolver.getResources(location);
+				Resource[] resources = resourcePatternResolver.getResources(location);	//diy 一个xml文件对应一个Resource
 				int count = loadBeanDefinitions(resources);
 				if (actualResources != null) {
 					Collections.addAll(actualResources, resources);
@@ -245,7 +245,7 @@ public abstract class AbstractBeanDefinitionReader implements BeanDefinitionRead
 	public int loadBeanDefinitions(String... locations) throws BeanDefinitionStoreException {
 		Assert.notNull(locations, "Location array must not be null");
 		int count = 0;
-		for (String location : locations) {
+		for (String location : locations) {	//diy 加载每一个xml配置文件
 			count += loadBeanDefinitions(location);
 		}
 		return count;

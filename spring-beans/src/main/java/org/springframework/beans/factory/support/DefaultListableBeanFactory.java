@@ -1233,7 +1233,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 		}
 
 		BeanDefinition existingDefinition = this.beanDefinitionMap.get(beanName);
-		if (existingDefinition != null) {
+		if (existingDefinition != null) {	//diy 先判断Map里面有没有
 			if (!isBeanDefinitionOverridable(beanName)) {
 				throw new BeanDefinitionOverrideException(beanName, beanDefinition, existingDefinition);
 			}
@@ -1279,7 +1279,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 			else {
 				// Still in startup registration phase
 				this.beanDefinitionMap.put(beanName, beanDefinition);
-				this.beanDefinitionNames.add(beanName);
+				this.beanDefinitionNames.add(beanName);	//diy 一个Bean名字的List集合
 				removeManualSingletonName(beanName);
 			}
 			this.frozenBeanDefinitionNames = null;

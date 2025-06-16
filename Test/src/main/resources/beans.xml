@@ -7,7 +7,4 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 	<bean class="com.whr.demo.bean.Cat" id="cat" autowire="byType">
 		<property name="name" value="张三的猫"></property>
 	</bean>
-	<bean class="com.whr.demo.bean.Person">
-
-	</bean>
 </beans>
