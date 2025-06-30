@@ -1,7 +1,5 @@
 package com.whr.demo.config;
 
-import com.whr.demo.bean.Person;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
@@ -12,10 +10,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ComponentScan(basePackages = "com.whr.demo")
 public class MainConfig {
-	@Bean(initMethod = "init")
-	public Person person() {
-		Person person = new Person();
-		person.setName("whr");
-		return person;
-	}
+//	@Bean(initMethod = "init")
+//	public Person person() {
+//		Person person = new Person();
+//		person.setName("whr");
+//		return person;
+//	}
 }

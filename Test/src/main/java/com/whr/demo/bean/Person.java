@@ -1,10 +1,12 @@
 package com.whr.demo.bean;
 
+import org.springframework.stereotype.Component;
+
 /**
  @author: wanghaoran1
  @create: 2025-05-23
  */
-
+@Component
 public class Person {
 	private String name;
 
