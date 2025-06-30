@@ -2,6 +2,7 @@ package com.whr.demo.config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 /**
  @author: wanghaoran1
@@ -9,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ComponentScan(basePackages = "com.whr.demo")
+@EnableAspectJAutoProxy
 public class MainConfig {
 //	@Bean(initMethod = "init")
 //	public Person person() {
@@ -16,4 +18,5 @@ public class MainConfig {
 //		person.setName("whr");
 //		return person;
 //	}
+
 }

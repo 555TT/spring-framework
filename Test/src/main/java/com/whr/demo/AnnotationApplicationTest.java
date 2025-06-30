@@ -1,7 +1,7 @@
 package com.whr.demo;
 
+import com.whr.demo.aop.HelloService;
 import com.whr.demo.config.MainConfig;
-import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
@@ -11,8 +11,8 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 public class AnnotationApplicationTest {
 	public static void main(String[] args) {
 		AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(MainConfig.class);
-		DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) applicationContext.getBeanFactory();
-		System.out.println();
+		HelloService helloService = applicationContext.getBean(HelloService.class);
+		helloService.helloAop();
 	}
 }
 
