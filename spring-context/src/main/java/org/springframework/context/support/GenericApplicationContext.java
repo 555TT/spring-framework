@@ -95,6 +95,7 @@ import org.springframework.util.Assert;
  * definition formats. For a custom application context implementation supposed to
  * read a specific bean definition format in a refreshable manner, consider
  * deriving from the {@link AbstractRefreshableApplicationContext} base class.
+ * //diy 这个类就是我们用的AnnotationConfigApplicationContext的父类
  *
  * @author Juergen Hoeller
  * @author Chris Beams
@@ -107,7 +108,7 @@ import org.springframework.util.Assert;
  * @see org.springframework.beans.factory.support.PropertiesBeanDefinitionReader
  */
 public class GenericApplicationContext extends AbstractApplicationContext implements BeanDefinitionRegistry {
-
+	//diy 组合了DefaultListableBeanFactory这个BeanDefinition注册中心，这里面以各种形式存储了BeanDefinition
 	private final DefaultListableBeanFactory beanFactory;
 
 	private @Nullable ResourceLoader resourceLoader;

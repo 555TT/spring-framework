@@ -394,7 +394,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 			throws BeanDefinitionStoreException {
 
 		try {
-			Document doc = doLoadDocument(inputSource, resource);	//diy 使用三方的dom解析，将xml解析为Document
+			Document doc = doLoadDocument(inputSource, resource);	//diy 使用三方的dom解析，将xml对应的Resource解析为Document
 			int count = registerBeanDefinitions(doc, resource);
 			if (logger.isDebugEnabled()) {
 				logger.debug("Loaded " + count + " bean definitions from " + resource);

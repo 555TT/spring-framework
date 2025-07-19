@@ -52,7 +52,7 @@ public abstract class AbstractBeanDefinitionReader implements BeanDefinitionRead
 	protected final Log logger = LogFactory.getLog(getClass());
 
 	private final BeanDefinitionRegistry registry;
-
+	//diy BeanDefinitionReader里组合了ResourceLoader
 	private @Nullable ResourceLoader resourceLoader;
 
 	private @Nullable ClassLoader beanClassLoader;

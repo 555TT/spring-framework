@@ -586,7 +586,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 
 			// Tell the subclass to refresh the internal bean factory.
 			//diy 1.创建DefaultListableBeanFactory；
-			//2.load bean定义信息：将xml文件对应为一个Resource，再通过dom解析为Document,再处理Document里的每一个element，如bean标签将其封装为BeanDefinition放入一个Map
+			//2.load bean定义信息：以xml方式为例，将xml文件对应为一个Resource，再通过dom解析为Document,再处理Document里的每一个element，如bean标签将其封装为BeanDefinition放入一个Map
 			ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();
 
 			// Prepare the bean factory for use in this context.

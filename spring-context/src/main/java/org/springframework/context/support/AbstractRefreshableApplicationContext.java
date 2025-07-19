@@ -68,7 +68,7 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
 	private @Nullable Boolean allowBeanDefinitionOverriding;
 
 	private @Nullable Boolean allowCircularReferences;
-
+	//diy 组合了DefaultListableBeanFactory这个BeanDefinition注册中心，这里面以各种形式存储了BeanDefinition
 	/** Bean factory for this context. */
 	private volatile @Nullable DefaultListableBeanFactory beanFactory;
 
