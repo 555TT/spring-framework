@@ -10,6 +10,6 @@ import org.springframework.stereotype.Service;
 public class HelloService {
 
 	public void helloAop(){
-		System.out.println("目标方法运行。。。");
+		System.out.println("target method run...。");
 	}
 }

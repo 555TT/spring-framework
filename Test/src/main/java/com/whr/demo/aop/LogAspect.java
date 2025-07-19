@@ -29,17 +29,17 @@ public class LogAspect {
 	 */
 	@Before("execution(* com.whr.demo.aop.HelloService.helloAop())")
 	public void beforeHello() {
-		System.out.println("前置通知方法。。。");
+		System.out.println("before通知方法...");
 	}
 
 	@After("execution(* com.whr.demo.aop.HelloService.helloAop())")
 	public void afterHello() {
-		System.out.println("后置通知方法。。。");
+		System.out.println("after通知方法。。。");
 	}
 
 	@AfterReturning("execution(* com.whr.demo.aop.HelloService.helloAop())")
 	public void afterReturningHello() {
-		System.out.println("返回通知方法。。。");
+		System.out.println("return通知方法...");
 	}
 
 //	@Around("execution(* com.whr.demo.aop.HelloService.helloAop())")
@@ -49,6 +49,6 @@ public class LogAspect {
 
 	@AfterThrowing("execution(* com.whr.demo.aop.HelloService.helloAop())")
 	public void afterThrowingHello() {
-		System.out.println("异常通知方法。。。");
+		System.out.println("throwing通知方法...");
 	}
 }
