@@ -1,6 +1,7 @@
 package com.whr.demo.bean;
 
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -14,10 +15,15 @@ import org.springframework.stereotype.Component;
 @Component
 @DependsOn("person")
 public class Cat implements ApplicationContextAware {
-	private String name;
+	private String name = "小猫";
 	private int age;
 	private ApplicationContext applicationContext;
+	private Person person;
 
+	@Autowired
+	public void setPerson(Person person) {
+		this.person = person;
+	}
 
 	public Cat() {
 		System.out.println("构造器方法");

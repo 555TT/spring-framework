@@ -8,6 +8,10 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class Person {
+	public Person() {
+		System.out.println("初始化Person对象");
+	}
+
 	private String name;
 
 	public String getName() {
