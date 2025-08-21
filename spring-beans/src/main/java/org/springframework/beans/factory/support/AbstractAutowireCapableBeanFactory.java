@@ -440,8 +440,8 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
 		Object result = existingBean;
 		for (BeanPostProcessor processor : getBeanPostProcessors()) {
-			Object current = processor.postProcessAfterInitialization(result, beanName);
-			if (current == null) {
+			Object current = processor.postProcessAfterInitialization(result, beanName);//在通过AnnotationAwareAspectJAutoProxyCreator这个后置处理器创建的代理对象
+			if (current == null) {														//
 				return result;
 			}
 			result = current;
@@ -596,7 +596,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 				logger.trace("Eagerly caching bean '" + beanName +
 						"' to allow for resolving potential circular references");
 			}
-			addSingletonFactory(beanName, () -> getEarlyBeanReference(beanName, mbd, bean));
+			addSingletonFactory(beanName, () -> getEarlyBeanReference(beanName, mbd, bean));	//将刚实例化的半成品对象（bean变量）暂存到lambda表达式中
 		}
 
 		// Initialize the bean instance.
